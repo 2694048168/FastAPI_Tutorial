@@ -16,6 +16,7 @@ logs/
 .idea/
 *.swp
 *.swo
+*.workbuddy/
 
 # OS
 .DS_Store

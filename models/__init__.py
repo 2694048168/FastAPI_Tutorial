@@ -11,26 +11,24 @@
 @Description: 
 """
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import MetaData
 
 from settings import DB_URL
 
-engine = create_engine(DB_URL,
-                       echo=True,  # SQL 日志
-                       pool_size=10,
-                       max_overflow=20,
-                       pool_recycle=3600,  # 默认 -1 表示永不回收
-                       pool_timeout=10,  # unit 10s
-                       pool_pre_ping=True)
+engine = create_async_engine(DB_URL,
+                             echo=True,  # SQL 日志
+                             pool_size=10,
+                             max_overflow=20,
+                             pool_recycle=3600,  # 默认 -1 表示永不回收
+                             pool_timeout=10,  # unit 10s
+                             pool_pre_ping=True)
 
-AsyncFactory = sessionmaker(bind=engine,
-                            class_=AsyncSession,
-                            autoflush=True,
-                            expire_on_commit=False)
+AsyncFactory = async_sessionmaker(bind=engine,
+                                  class_=AsyncSession,
+                                  autoflush=True,
+                                  expire_on_commit=False)
 
 
 # 定义命名约定的 Base 类
@@ -42,6 +40,7 @@ class Base(DeclarativeBase):
         "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
         "pk": "pk_%(table_name)s",
     })
+
 
 # 导入信息
 from . import user
