@@ -52,7 +52,7 @@ class NameOut(BaseModel):
 # --------- Agent core code
 llm = ChatDeepSeek(
     model="deepseek-chat",
-    api_key=SecretStr("sk-38032eaddd5940b58d2e310bebc247cc"),
+    api_key=SecretStr("deepseek-API-key"),
     temperature=1
 )
 
